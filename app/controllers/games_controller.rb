@@ -1,7 +1,13 @@
 require 'open-uri'
 
 class GamesController < ApplicationController
+  # def initialize
+  #   @session = ActionDispatch::Session::CookieStore.new
+  # end
+
   def new
+    #session[:total_score] = "bob"
+    #raise
     @letters = (0...10).map { ('A'..'Z').to_a[rand(26)] }
   end
 
@@ -11,6 +17,12 @@ class GamesController < ApplicationController
     @grid = params[:grid].gsub(/\W/, '').split('')
     @valid_to_grid = valid_letters?(@attempt_as_array, @grid)
     @valid_english = english_word?(@attempt)
+    if @valid_to_grid && @valid_english
+      session[:total_score] = 0 if session[:total_score].nil?
+
+      session[:total_score] += @attempt.length * @attempt.length
+    end
+    # build a basic scoring system
   end
 
   def valid_letters?(attempt, grid)

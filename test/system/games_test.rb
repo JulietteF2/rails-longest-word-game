@@ -17,12 +17,12 @@ class GamesTest < ApplicationSystemTestCase
 
   test 'Filling the form with a one-letter consonant word, click play, should get a message it’s not a valid English word' do
     visit new_url
-    test_letter = ""
+
     all('.letter').each do |letter|
       test_letter = letter.text if letter.text == /[^aeiou]/
       return test_letter
     end
-    # [^aeiou]
+
     fill_in 'attempt', with: test_letter
 
     click_on 'submit'

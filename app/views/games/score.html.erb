@@ -1,2 +1,15 @@
-<h1>Games#score</h1>
-<p>Find me in app/views/games/score.html.erb</p>
+<h1>Result</h1>
+
+<div class="result">
+  <% if !@valid_to_grid %>
+    <p>Sorry but <strong><%= @attempt.upcase %></strong> can't be built out of <%= @grid.join %></p>
+  <% elsif !@valid_english %>
+    <p>Sorry but <strong><%= @attempt.upcase %></strong> does not seem to be a valid English word...</p>
+  <% else%>
+    <p><strong>Congratulations!</strong> <%= @attempt.upcase %> is a valid English word!</p>
+  <% end %>
+</div>
+
+<div class="link">
+  <%= link_to "Play again", :new %>
+</div>
